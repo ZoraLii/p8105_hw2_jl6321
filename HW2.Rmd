@@ -9,13 +9,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Problem 2
 
-```{r Q1, eval=FALSE}
+```{r mr_trash, eval=FALSE}
 library(readxl)
 data_mr_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N549") 
-data_mr_trash$`Sports Balls` = round(data_mr_trash$`Sports Balls`, 0)
+data_mr_trash$`Sports Balls` = as.integer(round(data_mr_trash$`Sports Balls`)) 
 ```
 
+```{r prof_trash, eval=FALSE}
+library(readxl)
+data_prof_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M96") 
+```
+
+```{r join_dfs, eval=FALSE}
+data_mr_trash$Trash_wheel = "Mr"
+data_prof_trash$Trash_wheel = "Prof"
+data_mr_trash$Year = as.double(data_mr_trash$Year)
+data_joined_trash = full_join(data_mr_trash, data_prof_trash)
+```
+
+
 ```{r, eval=FALSE}
-View(data_mr_trash)
+View(data_joined_trash)
 ```
 
