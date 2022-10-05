@@ -29,4 +29,11 @@ data_mr_trash$year = as.double(data_mr_trash$year)
 data_joined_trash = full_join(data_mr_trash, data_prof_trash)
 ```
 
-The number of observations in the resulting dataset is `r nrow(data_joined_trash)`. Some examples of key variables are dumpster, year, weight_tons, and sports_balls. The total weight of trash collected by Professor Trash Wheel is `r sum(data_prof_trash$weight_tons)` tons. The total number of sports balls collected by Mr. Trash Wheel in 2020 is `r sum(filter(data_mr_trash, year == 2020)$sports_balls)`. 
+In the resulting dataset, there are `r nrow(data_joined_trash)` observations in total. Some examples of key variables are dumpster, year, weight_tons, and sports_balls. The total weight of trash collected by Professor Trash Wheel is `r sum(data_prof_trash$weight_tons)` tons. The total number of sports balls collected by Mr. Trash Wheel in 2020 is `r sum(filter(data_mr_trash, year == 2020)$sports_balls)`. 
+
+## Problem 3
+
+```{r}
+
+```
+
