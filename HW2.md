@@ -48,5 +48,12 @@ data_pols_month = subset(data_pols_month, select = -c(prez_dem, prez_gop, day))
 ```
 
 ``` r
-View(data_pols_month)
+data_snp = read.csv("snp.csv") %>%
+  separate(date, into = c("month", "day", "year"), sep = '/') %>% 
+  relocate(year)
+data_snp = subset(data_snp, select = -c(day))
+```
+
+``` r
+View(data_snp)
 ```
