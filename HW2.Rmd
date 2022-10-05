@@ -7,6 +7,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
 library(dplyr)
+library(tidyverse)
 ```
 
 ## Problem 2
@@ -33,7 +34,15 @@ In the resulting dataset, there are `r nrow(data_joined_trash)` observations in 
 
 ## Problem 3
 
-```{r}
+```{r pols_month}
+data_pols_month = read.csv("pols-month.csv") %>%
+  separate(mon, into = c("year", "month", "day"), sep = '-') %>% 
+  mutate(president = recode(prez_gop, `1` = "gop", `0` = "dem"))
+data_pols_month$month = month.abb[as.numeric(data_pols_month$month)] 
+data_pols_month = subset(data_pols_month, select = -c(prez_dem, prez_gop, day))
+```
 
+```{r, eval=FALSE}
+View(data_pols_month)
 ```
 
