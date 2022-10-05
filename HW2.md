@@ -49,9 +49,16 @@ data_pols_month = subset(data_pols_month, select = -c(prez_dem, prez_gop, day))
 
 ``` r
 data_snp = read.csv("snp.csv") %>%
-  separate(date, into = c("month", "day", "year"), sep = '/') %>% 
-  relocate(year)
+  separate(date, into = c("month", "day", "year"), sep = '/') 
+data_snp$year = as.numeric(data_snp$year)
+data_snp = mutate(data_snp, year = case_when(year < 22 ~ 2000 + year, year > 22 ~ 1900 + year)) %>% 
+  relocate(year) 
+data_snp$month = month.abb[as.numeric(data_snp$month)] 
 data_snp = subset(data_snp, select = -c(day))
+```
+
+``` r
+data_unemployment = read.csv("unemployment.csv") 
 ```
 
 ``` r
