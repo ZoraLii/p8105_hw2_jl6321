@@ -58,9 +58,15 @@ data_snp = subset(data_snp, select = -c(day))
 ```
 
 ``` r
-data_unemployment = read.csv("unemployment.csv") 
+data_unemployment = read.csv("unemployment.csv") %>% 
+  pivot_longer(
+    Jan:Dec, 
+    names_to = "month", 
+    values_to = "unemployment"
+  ) %>% 
+  janitor::clean_names()
 ```
 
 ``` r
-View(data_snp)
+View(data_unemployment)
 ```
