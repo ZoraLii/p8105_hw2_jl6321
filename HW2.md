@@ -1,21 +1,14 @@
----
-title: "p8105_hw2_jl6321.Rmd"
-output: github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+p8105_hw2_jl6321.Rmd
+================
 
 ## Problem 2
 
-```{r Q1, eval=FALSE}
+``` r
 library(readxl)
 data_mr_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N549") 
 data_mr_trash$`Sports Balls` = round(data_mr_trash$`Sports Balls`, 0)
 ```
 
-```{r, eval=FALSE}
+``` r
 View(data_mr_trash)
 ```
-
