@@ -5,30 +5,28 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(dplyr)
 ```
 
 ## Problem 2
 
-```{r mr_trash, eval=FALSE}
-library(readxl)
-data_mr_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N549") 
-data_mr_trash$`Sports Balls` = as.integer(round(data_mr_trash$`Sports Balls`)) 
+```{r mr_trash}
+data_mr_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N549") %>%
+  janitor::clean_names()
+data_mr_trash$sports_balls = as.integer(round(data_mr_trash$sports_balls)) 
 ```
 
-```{r prof_trash, eval=FALSE}
-library(readxl)
-data_prof_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M96") 
+```{r prof_trash}
+data_prof_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M96") %>%
+  janitor::clean_names()
 ```
 
-```{r join_dfs, eval=FALSE}
-data_mr_trash$Trash_wheel = "Mr"
-data_prof_trash$Trash_wheel = "Prof"
-data_mr_trash$Year = as.double(data_mr_trash$Year)
+```{r join_dfs}
+data_mr_trash$trash_wheel = "mr"
+data_prof_trash$trash_wheel = "prof"
+data_mr_trash$year = as.double(data_mr_trash$year)
 data_joined_trash = full_join(data_mr_trash, data_prof_trash)
 ```
 
-
-```{r, eval=FALSE}
-View(data_joined_trash)
-```
-
+The number of observations in the resulting dataset is `r nrow(data_joined_trash)`. Some examples of key variables are dumpster, year, weight_tons, and sports_balls. The total weight of trash collected by Professor Trash Wheel is `r sum(data_prof_trash$weight_tons)` tons. The total number of sports balls collected by Mr. Trash Wheel in 2020 is `r sum(filter(data_mr_trash, year == 2020)$sports_balls)`. 
