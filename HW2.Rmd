@@ -62,8 +62,14 @@ data_unemployment = read.csv("unemployment.csv") %>%
   janitor::clean_names()
 ```
 
+```{r merging}
+data_pols_month$year = as.numeric(data_pols_month$year)
+two_dfs_merged = full_join(data_snp, data_pols_month)
+all_dfs_merged = full_join(data_unemployment, two_dfs_merged)
+```
+
 
 ```{r, eval=FALSE}
-View(data_unemployment)
+View(all_dfs_merged)
 ```
 

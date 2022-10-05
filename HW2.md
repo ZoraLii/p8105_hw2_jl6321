@@ -68,5 +68,18 @@ data_unemployment = read.csv("unemployment.csv") %>%
 ```
 
 ``` r
-View(data_unemployment)
+data_pols_month$year = as.numeric(data_pols_month$year)
+two_dfs_merged = full_join(data_snp, data_pols_month)
+```
+
+    ## Joining, by = c("year", "month")
+
+``` r
+all_dfs_merged = full_join(data_unemployment, two_dfs_merged)
+```
+
+    ## Joining, by = c("year", "month")
+
+``` r
+View(all_dfs_merged)
 ```
