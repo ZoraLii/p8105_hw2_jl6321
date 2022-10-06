@@ -12,17 +12,20 @@ library(tidyverse)
 
 ## Problem 2
 
+Read and clean the Mr. Trash Wheel sheet.
 ```{r mr_trash}
 data_mr_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N549") %>%
   janitor::clean_names()
 data_mr_trash$sports_balls = as.integer(round(data_mr_trash$sports_balls)) 
 ```
 
+Apply similar procedure on Professor Wheel sheet. 
 ```{r prof_trash}
 data_prof_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M96") %>%
   janitor::clean_names()
 ```
 
+Combine the two datasets. 
 ```{r join_dfs}
 data_mr_trash$trash_wheel = "mr"
 data_prof_trash$trash_wheel = "prof"
@@ -34,6 +37,7 @@ In the resulting dataset, there are `r nrow(data_joined_trash)` observations in 
 
 ## Problem 3
 
+Clean the pols-month dataset. 
 ```{r pols_month}
 data_pols_month = read.csv("pols-month.csv") %>%
   separate(mon, into = c("year", "month", "day"), sep = '-') %>% 
@@ -42,6 +46,7 @@ data_pols_month$month = month.abb[as.numeric(data_pols_month$month)]
 data_pols_month = subset(data_pols_month, select = -c(prez_dem, prez_gop, day))
 ```
 
+Clean the data in snp.csv. 
 ```{r snp}
 data_snp = read.csv("snp.csv") %>%
   separate(date, into = c("month", "day", "year"), sep = '/') 
@@ -52,6 +57,7 @@ data_snp$month = month.abb[as.numeric(data_snp$month)]
 data_snp = subset(data_snp, select = -c(day))
 ```
 
+Tidy the unemployment data. 
 ```{r unemployment}
 data_unemployment = read.csv("unemployment.csv") %>% 
   pivot_longer(
@@ -62,6 +68,7 @@ data_unemployment = read.csv("unemployment.csv") %>%
   janitor::clean_names()
 ```
 
+Joining all three datasets.
 ```{r merging}
 data_pols_month$year = as.numeric(data_pols_month$year)
 two_dfs_merged = full_join(data_snp, data_pols_month)

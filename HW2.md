@@ -3,16 +3,22 @@ p8105_hw2_jl6321.Rmd
 
 ## Problem 2
 
+Read and clean the Mr. Trash Wheel sheet.
+
 ``` r
 data_mr_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N549") %>%
   janitor::clean_names()
 data_mr_trash$sports_balls = as.integer(round(data_mr_trash$sports_balls)) 
 ```
 
+Apply similar procedure on Professor Wheel sheet.
+
 ``` r
 data_prof_trash = read_excel("Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = "A2:M96") %>%
   janitor::clean_names()
 ```
+
+Combine the two datasets.
 
 ``` r
 data_mr_trash$trash_wheel = "mr"
@@ -33,6 +39,8 @@ Mr. Trash Wheel in 2020 is 856.
 
 ## Problem 3
 
+Clean the pols-month dataset.
+
 ``` r
 data_pols_month = read.csv("pols-month.csv") %>%
   separate(mon, into = c("year", "month", "day"), sep = '-') %>% 
@@ -47,6 +55,8 @@ data_pols_month$month = month.abb[as.numeric(data_pols_month$month)]
 data_pols_month = subset(data_pols_month, select = -c(prez_dem, prez_gop, day))
 ```
 
+Clean the data in snp.csv.
+
 ``` r
 data_snp = read.csv("snp.csv") %>%
   separate(date, into = c("month", "day", "year"), sep = '/') 
@@ -57,6 +67,8 @@ data_snp$month = month.abb[as.numeric(data_snp$month)]
 data_snp = subset(data_snp, select = -c(day))
 ```
 
+Tidy the unemployment data.
+
 ``` r
 data_unemployment = read.csv("unemployment.csv") %>% 
   pivot_longer(
@@ -66,6 +78,8 @@ data_unemployment = read.csv("unemployment.csv") %>%
   ) %>% 
   janitor::clean_names()
 ```
+
+Joining all three datasets.
 
 ``` r
 data_pols_month$year = as.numeric(data_pols_month$year)
@@ -80,6 +94,10 @@ all_dfs_merged = full_join(data_unemployment, two_dfs_merged)
 
     ## Joining, by = c("year", "month")
 
-``` r
-View(all_dfs_merged)
-```
+The dataset data_pols_month contains year, month, gov_gop, sen_gop,
+rep_gop, gov_dem, sen_dem, rep_dem, president. The dataset data_snp
+contains year, month, close. The dataset data_unemployment contains
+year, month, unemployment. The resulting dataset is all_dfs_merged,
+which contains all variables in the previous three datasets. It has 11
+variables and 828 rows. The year variable ranges from 1947 to 2015. Some
+key variables include year, month, unemployment, close, and president.
