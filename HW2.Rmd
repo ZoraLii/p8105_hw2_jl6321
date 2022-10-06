@@ -68,8 +68,4 @@ two_dfs_merged = full_join(data_snp, data_pols_month)
 all_dfs_merged = full_join(data_unemployment, two_dfs_merged)
 ```
 
-
-```{r, eval=FALSE}
-View(all_dfs_merged)
-```
-
+The dataset data_pols_month contains `r colnames(data_pols_month)`. The dataset data_snp contains `r colnames(data_snp)`. The dataset data_unemployment contains `r colnames(data_unemployment)`. The resulting dataset is all_dfs_merged, which contains all variables in the previous three datasets. It has `r ncol(all_dfs_merged)` variables and `r nrow(all_dfs_merged)` rows. The year variable ranges from `r min(all_dfs_merged$year)` to `r max(all_dfs_merged$year)`. Some key variables include year, month, unemployment, close, and president. 
